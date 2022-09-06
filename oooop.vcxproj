@@ -22,11 +22,13 @@
     <ClCompile Include="init.cpp" />
     <ClCompile Include="src\ctrl\keyput.cpp" />
     <ClCompile Include="src\glad.c" />
+    <ClCompile Include="src\render\widget.cpp" />
     <ClCompile Include="src\render\window.cpp" />
     <ClCompile Include="usrs.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ctrl\keyput.h" />
+    <ClInclude Include="include\render\widget.h" />
     <ClInclude Include="include\render\window.h">
       <DeploymentContent>false</DeploymentContent>
     </ClInclude>

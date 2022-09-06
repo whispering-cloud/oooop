@@ -30,6 +30,9 @@
     <ClCompile Include="usrs.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\render\widget.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\render\window.h">
@@ -39,6 +42,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="usrs.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\render\widget.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

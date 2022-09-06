@@ -1,8 +1,6 @@
-#pragma once
 #ifndef __KEYPUT__
 #define __KEYPUT__
 
-#include "../../usrs.h"
 
 class keyput {
 public:
