@@ -5,6 +5,7 @@
 #include "include/ctrl/keyput.h"
 #include "include/render/window.h"
 #include "include/render/widget.h"
+#include "include/render/shader.h"
 
 class usrs {
 public:

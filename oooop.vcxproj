@@ -22,17 +22,23 @@
     <ClCompile Include="init.cpp" />
     <ClCompile Include="src\ctrl\keyput.cpp" />
     <ClCompile Include="src\glad.c" />
+    <ClCompile Include="src\render\shader.cpp" />
     <ClCompile Include="src\render\widget.cpp" />
     <ClCompile Include="src\render\window.cpp" />
     <ClCompile Include="usrs.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ctrl\keyput.h" />
+    <ClInclude Include="include\render\shader.h" />
     <ClInclude Include="include\render\widget.h" />
     <ClInclude Include="include\render\window.h">
       <DeploymentContent>false</DeploymentContent>
     </ClInclude>
     <ClInclude Include="usrs.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\render\renderer_glsl\test_frag.glsl" />
+    <None Include="src\render\renderer_glsl\test_vertex.glsl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

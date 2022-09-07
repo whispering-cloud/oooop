@@ -19,7 +19,11 @@ int main() {
     if (usrlib->windowh->genWindow() == -1) {
         std::cout << "window generate error\n";
     }
-    
+    // shader generate
+    shader tst("./renderer_glsl/test_vertex.glsl", "./renderer_glsl/test_frag.glsl");
+    tst.enable();
+
+
 	//std::cout << 1;
     delete usrlib;
     usrlib = nullptr;
