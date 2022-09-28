@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="init.cpp" />
+    <ClCompile Include="resources.cpp" />
     <ClCompile Include="src\ctrl\keyput.cpp" />
     <ClCompile Include="src\glad.c" />
     <ClCompile Include="src\render\shader.cpp" />
@@ -34,6 +35,7 @@
     <ClInclude Include="include\render\window.h">
       <DeploymentContent>false</DeploymentContent>
     </ClInclude>
+    <ClInclude Include="stb_image.h" />
     <ClInclude Include="usrs.h" />
   </ItemGroup>
   <ItemGroup>

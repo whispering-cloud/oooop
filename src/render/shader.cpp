@@ -56,7 +56,7 @@ shader::shader(const char* vertex_path, const char* fragment_path) {
 
     // 片段着色器也类似
     fragment = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fragment, 1, &vShaderCode, NULL);
+    glShaderSource(fragment, 1, &fShaderCode, NULL);
     glCompileShader(fragment);
     // 打印编译错误（如果有的话）
     glGetShaderiv(fragment, GL_COMPILE_STATUS, &success);
@@ -99,5 +99,9 @@ void shader::setUniform(const std::string& name, int value) const
 void shader::setUniform(const std::string& name, float value) const
 {
     glUniform1f(glGetUniformLocation(index, name.c_str()), value);
+}
+void shader::setUniform(const std::string& name, float value1, float value2, float value3, float value4) const
+{
+    glUniform4f(glGetUniformLocation(index, name.c_str()), value1, value2, value3, value4);
 }
 
