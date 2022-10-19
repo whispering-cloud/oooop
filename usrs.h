@@ -3,6 +3,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <string>
+#include <vector>
 #include "include/ctrl/keyput.h"
 #include "include/render/window.h"
 #include "include/render/widget.h"
@@ -14,14 +15,14 @@ const int MAX_WIDTH = 1296;
 
 class usrs {
 public:
-	static int tickrate;
+	int tickrate;
 	~usrs();
 	void usrlib_init(void);
 	void ticking(void);
 	void logPrint(std::string logText);
 	window* windowh;
 	keyput* keyputh;
-
+	std::vector<shader> glslPrograms;
 
 	GLFWwindow* wds;	// main window
 

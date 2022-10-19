@@ -35,6 +35,10 @@ point::point(int x, int y)
 
 point::point(double nx, double ny, bool polar) {
 	if (!polar) {
+		nx /= 2;
+		nx += 1;
+		ny /= 2;
+		ny += 1;
 		nx *= MAX_WIDTH;
 		ny *= MAX_HEIGHT;
 		r = sqrt(nx * nx + ny * ny);
@@ -63,8 +67,7 @@ point point::operator- (point& from) const {
 	return point(this->x - from.x, this->y - from.y);
 }
 
-point::point() {}
-widget:: widget() {}
+//widget:: widget() {}
 
 widget::widget(int index,int posx, int posy, int sizex, int sizey, widget* fth) 
 :id(index),localx(posx),localy(posy),width(sizex),height(sizey),father(fth)
@@ -73,6 +76,7 @@ widget::widget(int index,int posx, int posy, int sizex, int sizey, widget* fth)
 		nth_child = father->children.size();
 		father->children.push_back(this);
 	}
+	//renderer = vabo(,sizeof(), 4, &usrlib->glslPrograms[0], GL_DYNAMIC_DRAW, )
 }
 void widget::relocate(int x, int y) {
 	localx = x;
@@ -128,19 +132,38 @@ widget::operator int()
 	return this->id;
 }
 
-spirit::spirit(int index, int posx, int posy, int sizex, int sizey, widget* fth, int textureID)
-{
-	id = index;
-	localx = posx;
-	localy = posy;
-	width = sizex;
-	height = sizey;
-	father = fth;
-	if (father != nullptr) {
-		nth_child = father->children.size();
-		father->children.push_back(this);
+void widget::enable(bool status) {
+	enabled = status;
+}
+
+void widget::update() {
+	if (enabled) {
+		renderer.render();
 	}
+}
+
+
+spirit::spirit(int index, int posx, int posy, int sizex, int sizey, widget* fth, int textureID)
+:widget(index, posx, posy, sizex, sizey, fth)
+{
 	
+}
+
+button::button(int index, int posx, int posy, int sizex, int sizey, widget* fth, keyListen reCall)
+:widget(index, posx, posy, sizex, sizey, fth)
+{
+	listenerIndex = usrlib->keyputh->addListener(eventListener(point(posx, posy), point(posx + sizex, posy + sizey), reCall));
+	
+}
+
+button::~button() {
+	usrlib->keyputh->listenerList[listenerIndex].buttonListener = nullptr;
+}
+
+text::text(int index, int posx, int posy, int sizex, int sizey, widget* fth, std::string message) 
+:widget(index, posx, posy, sizex, sizey, fth)
+{
+	text_content = message;
 }
 
 

@@ -2,6 +2,8 @@
 #define __WIDGET__
 
 #include <vector>
+#include <string>
+#include "shader.h"
 
 class point {
 public:
@@ -18,6 +20,8 @@ public:
 
 };
 
+typedef void (*keyListen)(point clickPosition);
+
 
 class widget {
 friend double normalization(int x, bool isY);
@@ -26,7 +30,7 @@ public:
 	int id;
 	std::vector<widget*> children;
 
-	widget();
+	//widget();
 	widget(int index, int posx, int posy, int sizex, int sizey, widget* fth = nullptr);
 	~widget();
 	widget(const widget& from);
@@ -39,7 +43,9 @@ public:
 
 	void relocate(int x, int y);
 	void deleteRecursion();
+	void enable(bool status);
 
+	virtual void update();
 
 protected:
 	int localx;
@@ -48,21 +54,29 @@ protected:
 	int width;
 	widget* father;
 	int nth_child = 0;
+	bool enabled;
+	vabo renderer;
 };
 
 
-class spirit: public widget {
+class spirit : public widget {
 public:
 	spirit(int index, int posx, int posy, int sizex, int sizey, widget* fth = nullptr, int textureID = 0);
 };
 
 class button : public widget {
 public:
-	button() {
-		
-	}
+	button(int index, int posx, int posy, int sizex, int sizey, widget* fth = nullptr, keyListen reCall = nullptr);
+	~button();
+	
+	int listenerIndex;
 };
 
+class text : public widget {
+public:
+	text(int index, int posx, int posy, int sizex, int sizey, widget* fth = nullptr, std::string message = "");
+	std::string text_content;
+};
 
 
 #endif // !__WIDGET__

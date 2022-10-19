@@ -6,6 +6,11 @@
 #include <string>
 #include "../../usrs.h"
 
+const unsigned int rectIndices[] = {
+    0, 1, 3, // first triangle
+    1, 2, 3  // second triangle
+};
+
 shader::shader(const char* vertex_path, const char* fragment_path) {
     std::string vertexCode;
     std::string fragmentCode;
@@ -105,3 +110,73 @@ void shader::setUniform(const std::string& name, float value1, float value2, flo
     glUniform4f(glGetUniformLocation(index, name.c_str()), value1, value2, value3, value4);
 }
 
+
+
+
+shader::operator GLuint() {
+    return this->index;
+}
+
+void vabo::render() {
+    renderShader->enable();
+    //glUseProgram(*renderShader);
+    glBindVertexArray(vaoid);
+    glDrawArrays(graphUnit, 0, vtx);
+    glBindVertexArray(0);
+}
+
+// vbo mode
+vabo::vabo(float vertices[], int vtcsize, int vtxnum, shader* shad, unsigned int vboMode, unsigned int gut, int propernum) {
+    //usrlib->logPrint("Create vabo ");
+    eboid = 0;
+    renderShader = shad;
+    vtx = vtxnum;
+    graphUnit = gut;
+    glGenVertexArrays(1, &vaoid);
+    glGenBuffers(1, &vboid);
+    usrlib->windowh->delvao.push_back(this->vaoid);
+    usrlib->windowh->delvbo.push_back(this->vboid);
+
+    glBindVertexArray(vaoid);
+    glBindBuffer(GL_ARRAY_BUFFER, vboid);
+    glBufferData(GL_ARRAY_BUFFER, vtcsize, vertices, vboMode);
+    for (re i = 0; i < propernum; i++) {
+        glVertexAttribPointer(i, vtx, GL_FLOAT, GL_FALSE, vtx * propernum * sizeof(float), (void*)(i * vtx * sizeof(float)));
+        glEnableVertexAttribArray(i);
+    }
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindVertexArray(0);
+
+}
+// ebo mode
+vabo::vabo(float vertices[], int vtcsize, unsigned int indices[], int indsize, int vtxnum, shader* shad, unsigned int vboMode, unsigned int gut, int propernum) {
+    renderShader = shad;
+    vtx = vtxnum;
+    graphUnit = gut;
+    glGenVertexArrays(1, &vaoid);
+    glGenBuffers(1, &vboid);
+    glGenBuffers(1, &eboid);
+    usrlib->windowh->delvao.push_back(vaoid);
+    usrlib->windowh->delvbo.push_back(vboid);
+    usrlib->windowh->delvbo.push_back(eboid);
+    glBindBuffer(GL_ARRAY_BUFFER, vboid);
+    glBufferData(GL_ARRAY_BUFFER, vtcsize, vertices, GL_STATIC_DRAW);
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eboid);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indsize, indices, GL_STATIC_DRAW);
+    for (re i = 0; i < propernum; i++) {
+        glVertexAttribPointer(i, vtx, GL_FLOAT, GL_FALSE, vtx * propernum * sizeof(float), (void*)(i * vtx * sizeof(float)));
+        glEnableVertexAttribArray(i);
+    }
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindVertexArray(0);
+}
+
+vabo::vabo(vabo& from) {
+    this->vtx = from.vtx;
+    this->vaoid = from.vaoid;
+    this->vboid = from.vboid;
+    this->graphUnit = from.graphUnit;
+    this->renderShader = from.renderShader;
+    this->eboid = from.eboid;
+}

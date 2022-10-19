@@ -38,15 +38,21 @@ void keyput::detectKey(GLFWwindow* argwindow) {
 }
 
 void keyput::buttonHandler(GLFWwindow* argwindow, point clickPosition) {
-	for (re i = listenerList.size() - 1; i >= 0; i--) {
-		if (clickPosition.x < listenerList[i].zoney.x
-			&& clickPosition.x > listenerList[i].zonex.x
-			&& clickPosition.y < listenerList[i].zoney.y
-			&& clickPosition.y > listenerList[i].zonex.x) {
-			listenerList[i].buttonListener(clickPosition);
-			break;
+	for (re i = (int)(listenerList.size()) - 1; i >= 0; i--) {
+		if (listenerList[i].buttonListener != nullptr)
+		{
+			if (clickPosition.x < listenerList[i].zoney.x
+				&& clickPosition.x > listenerList[i].zonex.x
+				&& clickPosition.y < listenerList[i].zoney.y
+				&& clickPosition.y > listenerList[i].zonex.x) {
+				listenerList[i].buttonListener(clickPosition);
+				break;
+			}
 		}
 	}
 }
 
-
+int keyput::addListener(eventListener evl) {
+	listenerList.push_back(evl);
+	return (int)(listenerList.size()) - 1;
+}

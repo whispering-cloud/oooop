@@ -1,10 +1,13 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include <vector>
 #include "../../usrs.h"
 
-unsigned int VBO, VAO;
-shader* abc;
+vabo tria;
+//unsigned int VBO, VAO;
+
+
 void window::loopRender()
 {
     while (!glfwWindowShouldClose(usrlib->wds))
@@ -15,12 +18,10 @@ void window::loopRender()
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
         //abc->enable();
-        abc->setUniform("ourColor", sin(glfwGetTime())/2.0f+0.5f, 1-(sin(glfwGetTime()) / 2.0f + 0.5f), 0.5f, 1.0f);
+        //usrlib->glslPrograms[0].setUniform("ourColor", sin(glfwGetTime())/2.0f+0.5f, 1-(sin(glfwGetTime()) / 2.0f + 0.5f), 0.5f, 1.0f);
         // render the triangle
-        glBindVertexArray(VAO);
-        glDrawArrays(GL_TRIANGLES, 0, 3);
+        tria.render();
 
-        
         // process key control
         usrlib->keyputh->detectKey(usrlib->wds);
         // Ticking
@@ -64,9 +65,13 @@ int window::genWindow()
     glViewport(0, 0, width, height);
     glfwSetFramebufferSizeCallback(usrlib->wds, framebuffer_size_callback);
 
+    rootRender = new widget(0, 0, 0, 0, 0);
+
+
+    // tst
+    
     // shader generate
-    shader tst("./src/render/renderer_glsl/test_vertex.glsl", "./src/render/renderer_glsl/test_frag.glsl");
-    abc = &tst;
+    usrlib->glslPrograms.push_back(shader("./src/render/renderer_glsl/test_vertex.glsl", "./src/render/renderer_glsl/test_frag.glsl"));
 
     // test triangle
     float vertices[] = {
@@ -75,24 +80,7 @@ int window::genWindow()
         -0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,  // bottom left
          0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f   // top 
     };
-
-
-    glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
-    // bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
-    glBindVertexArray(VAO);
-
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_DYNAMIC_DRAW);
-
-    // position attribute
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-    // color attribute
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
-    glEnableVertexAttribArray(1);
-    //glBindBuffer(GL_ARRAY_BUFFER, 0);
-    //glBindVertexArray(0);
+    tria = vabo(vertices, sizeof(vertices), 3, &usrlib->glslPrograms[0], GL_DYNAMIC_DRAW, GL_TRIANGLES, 2);
 
     // texture
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -102,13 +90,26 @@ int window::genWindow()
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glGenerateMipmap(GL_TEXTURE_2D);
 
+    // tst end
+
+
+
+
+
     // stay
     loopRender();
     // destroy
-    glDeleteVertexArrays(1, &VAO);
-    glDeleteBuffers(1, &VBO);
     glfwTerminate();
-
+    for (re i = 0; i < delvao.size(); i++) {
+        glDeleteVertexArrays(1, &delvao[i]);
+    }
+    for (re i = 0; i < delvbo.size(); i++) {
+        glDeleteBuffers(1, &delvbo[i]);
+    }
+    for (re i = 0; i < usrlib->glslPrograms.size(); i++) {
+        glDeleteProgram(usrlib->glslPrograms[i]);
+    }
+    rootRender->deleteRecursion();
     return 1;
 }
 

@@ -16,6 +16,9 @@
     <Filter Include="资源文件\glsl">
       <UniqueIdentifier>{30d72c8b-5443-4752-ad6b-3e5b89b72c8c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="资源文件\pics">
+      <UniqueIdentifier>{2a17cf26-b52c-4fb1-9388-b8ad5abc2094}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\glad.c">
@@ -62,6 +65,9 @@
     <ClInclude Include="stb_image.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="resources.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\render\renderer_glsl\test_frag.glsl">
@@ -70,5 +76,10 @@
     <None Include="src\render\renderer_glsl\test_vertex.glsl">
       <Filter>资源文件\glsl</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="resource\wall.jpg">
+      <Filter>资源文件\pics</Filter>
+    </Image>
   </ItemGroup>
 </Project>
