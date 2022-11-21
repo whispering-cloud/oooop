@@ -19,10 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="glad.c" />
     <ClCompile Include="init.cpp" />
     <ClCompile Include="resources.cpp" />
     <ClCompile Include="src\ctrl\keyput.cpp" />
-    <ClCompile Include="src\glad.c" />
     <ClCompile Include="src\render\shader.cpp" />
     <ClCompile Include="src\render\widget.cpp" />
     <ClCompile Include="src\render\window.cpp" />
@@ -40,11 +40,27 @@
     <ClInclude Include="usrs.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="src\render\renderer_glsl\font_frag.glsl" />
+    <None Include="src\render\renderer_glsl\font_vertex.glsl" />
+    <None Include="src\render\renderer_glsl\frame_frag.glsl" />
+    <None Include="src\render\renderer_glsl\frame_vertex.glsl" />
     <None Include="src\render\renderer_glsl\test_frag.glsl" />
     <None Include="src\render\renderer_glsl\test_vertex.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="resource\wall.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="resource\font\arial.ttf" />
+    <Font Include="resource\font\arialbd.ttf" />
+    <Font Include="resource\font\arialbi.ttf" />
+    <Font Include="resource\font\ariali.ttf" />
+    <Font Include="resource\font\ARIALN.TTF" />
+    <Font Include="resource\font\ARIALNB.TTF" />
+    <Font Include="resource\font\ARIALNBI.TTF" />
+    <Font Include="resource\font\ARIALNI.TTF" />
+    <Font Include="resource\font\ariblk.ttf" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -108,8 +124,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\Program Files\glfw-3.3.8.bin.WIN64\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);C:\Program Files\glfw-3.3.8.bin.WIN64\lib-vc2019;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\Program Files\glfw-3.3.8.bin.WIN64\include;C:\Program Files\irrKlang-64bit-1.6.0\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);C:\Program Files\glfw-3.3.8.bin.WIN64\lib-vc2019;C:\Program Files\irrKlang-64bit-1.6.0\lib\Winx64-visualStudio;C:\Program Files\irrKlang-64bit-1.6.0\bin\winx64-visualStudio;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -153,7 +169,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;irrKlang.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Program Files\irrKlang-64bit-1.6.0\lib\Winx64-visualStudio;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -174,5 +191,12 @@
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="packages\freetype2.2.6.0.1\build\native\freetype2.targets" Condition="Exists('packages\freetype2.2.6.0.1\build\native\freetype2.targets')" />
   </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>这台计算机上缺少此项目引用的 NuGet 程序包。使用“NuGet 程序包还原”可下载这些程序包。有关更多信息，请参见 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\freetype2.2.6.0.1\build\native\freetype2.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\freetype2.2.6.0.1\build\native\freetype2.targets'))" />
+  </Target>
 </Project>

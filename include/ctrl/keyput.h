@@ -10,6 +10,7 @@ public:
 	point zonex;
 	point zoney;
 	keyListen buttonListener;
+	bool enabled = true;
 	eventListener(point zx, point zy, keyListen bl)
 	:zonex(zx), zoney(zy), buttonListener(bl)
 	{}
@@ -17,6 +18,7 @@ public:
 
 class keyput {
 public:
+	void initKey();
 	void detectKey(GLFWwindow* argwindow);
 	void buttonHandler(GLFWwindow* argwindow, point clickPosition);
 	int addListener(eventListener evl);

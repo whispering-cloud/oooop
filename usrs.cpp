@@ -1,37 +1,33 @@
 #include <iostream>
 #include "usrs.h"
 
-
+unsigned int rectIndices[] = {
+	0, 1, 3, // first triangle
+	1, 2, 3  // second triangle
+};
 usrs* usrlib = new usrs();
-
-void closeWindow(point clickPosition) {
-	glfwSetWindowShouldClose(usrlib->wds, true);
-	usrlib->logPrint("CLOSED");
-}
-
-void buttonHelper(point clickPosition) {
-	usrlib->keyputh->buttonHandler(usrlib->wds, clickPosition);
-}
 
 void usrs::usrlib_init(void)
 {
 	tickrate = 10;
 	windowh = new window();
 	keyputh = new keyput();
-	keyputh->keyputCall = std::vector<keyListen>(128, nullptr);
+	keyputh->initKey();
 	tick_counter = 0;
-
-	keyputh->keyputCall[0] = closeWindow;
-	keyputh->keyputCall[2] = buttonHelper;
+	
 
 	return;
 }
-void usrs::logPrint(std::string logText) {
+
+void logPrint(std::string logText) {
 	std::cout << "Log whispering19: " << logText << std::endl;
 }
-void usrs::ticking(void) {
-	
 
+void logError(int errid) {
+	std::cout << "ERROR whispering19: " << errid << std::endl;
+}
+
+void usrs::ticking(void) {
 	// down fps
 	tick_counter++;
 	if (tick_counter >= tickrate) {
@@ -46,4 +42,5 @@ usrs::~usrs() {
 	this->windowh = nullptr;
 	delete this->keyputh;
 	this->keyputh = nullptr;
+	soundEngine->drop();
 }

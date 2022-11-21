@@ -19,11 +19,11 @@
     <Filter Include="资源文件\pics">
       <UniqueIdentifier>{2a17cf26-b52c-4fb1-9388-b8ad5abc2094}</UniqueIdentifier>
     </Filter>
+    <Filter Include="资源文件\fonts">
+      <UniqueIdentifier>{9ef80bbb-d33f-4596-a93b-25aacee2d74a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\glad.c">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="init.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -43,6 +43,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="resources.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="glad.c">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -76,10 +79,52 @@
     <None Include="src\render\renderer_glsl\test_vertex.glsl">
       <Filter>资源文件\glsl</Filter>
     </None>
+    <None Include="packages.config" />
+    <None Include="src\render\renderer_glsl\font_frag.glsl">
+      <Filter>资源文件\glsl</Filter>
+    </None>
+    <None Include="src\render\renderer_glsl\font_vertex.glsl">
+      <Filter>资源文件\glsl</Filter>
+    </None>
+    <None Include="src\render\renderer_glsl\frame_frag.glsl">
+      <Filter>资源文件\glsl</Filter>
+    </None>
+    <None Include="src\render\renderer_glsl\frame_vertex.glsl">
+      <Filter>资源文件\glsl</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="resource\wall.jpg">
       <Filter>资源文件\pics</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="resource\font\arial.ttf">
+      <Filter>资源文件\fonts</Filter>
+    </Font>
+    <Font Include="resource\font\arialbd.ttf">
+      <Filter>资源文件\fonts</Filter>
+    </Font>
+    <Font Include="resource\font\arialbi.ttf">
+      <Filter>资源文件\fonts</Filter>
+    </Font>
+    <Font Include="resource\font\ariali.ttf">
+      <Filter>资源文件\fonts</Filter>
+    </Font>
+    <Font Include="resource\font\ARIALN.TTF">
+      <Filter>资源文件\fonts</Filter>
+    </Font>
+    <Font Include="resource\font\ARIALNB.TTF">
+      <Filter>资源文件\fonts</Filter>
+    </Font>
+    <Font Include="resource\font\ARIALNBI.TTF">
+      <Filter>资源文件\fonts</Filter>
+    </Font>
+    <Font Include="resource\font\ARIALNI.TTF">
+      <Filter>资源文件\fonts</Filter>
+    </Font>
+    <Font Include="resource\font\ariblk.ttf">
+      <Filter>资源文件\fonts</Filter>
+    </Font>
   </ItemGroup>
 </Project>
